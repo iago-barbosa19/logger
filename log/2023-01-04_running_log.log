@@ -1,0 +1,2 @@
+| 04/01/2023 - 10:03:41 --- File: __main__ : teste [ERROR] ---  Motive: foi | Cause: raise Exception('foi') | Line: 9 | Localization of Exception: teste |
+| 04/01/2023 - 10:32:19 --- File: __main__ : teste [ERROR] ---  Motive: foi | Cause: raise Exception('foi') | Line: 9 | Localization of Exception: teste |

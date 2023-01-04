@@ -1,0 +1,21 @@
+[build-system]
+requires=["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "logger"
+version = "0.01"
+authors = [
+    {name="Iago Barbosa", email="iagofbarbosa23@gmail.com"}
+]
+description = "Um pacote de logger, usado como uma opção melhor do que o logging"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/iago-barbosa19/logger"
