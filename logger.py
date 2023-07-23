@@ -29,10 +29,8 @@ class Log:
         if not os.path.exists(directory):
             os.mkdir(directory)
         self.__directory = directory
-        self.__file_name = '{current_date}_{received_name}.log'.format( current_date=datetime.datetime.now().strftime("%Y-%m-%d"),
-                                                                        received_name=file_name)
+        self.__file_name = file_name
         self.__opening_method = opening_method
-        self.__file_directory = os.path.join(self.__directory, self.__file_name)
         self.__encoding_method = encoding_method
         self.__level = debug_level
 
@@ -47,7 +45,11 @@ class Log:
         Returns:
             str: directory where it's located
         """
-        return self.__file_directory
+        return self.__directory
+
+    @property
+    def file_directory(self: Literal['Log']) -> str:
+        return os.path.join(self.__directory, self.file_name)
 
     @property
     def file_name(self: Literal['Log']) -> str:
@@ -60,7 +62,8 @@ class Log:
         Returns:
             str: File name
         """
-        return self.__file_name
+        return '{current_date}_{received_name}.log'.format( current_date=datetime.datetime.now().strftime("%Y-%m-%d"),
+                                                                        received_name=self.__file_name)
     
     @property
     def opening_method(self: Literal['Log']) -> str:
@@ -152,7 +155,7 @@ class Log:
             if isinstance(message, Exception) or  exception_occurrence is not None and isinstance(exception_occurrence, Exception):
                 message = self.assemble_exception_message(message, exception_occurrence)
             log_message, log_level_message = log_message_mounter(self, message)
-            with open(self.__file_directory, self.opening_method, encoding=self.__encoding_method) as file:
+            with open(self.file_directory, self.opening_method, encoding=self.__encoding_method) as file:
                 file.write(log_message)
             self.__show_message_if_level_equals(log_level_message, log_message)
             
@@ -207,15 +210,15 @@ class Log:
         """
         if self.level <= level_of_occurrence:
             os.system(f'echo "{message}"')
-
+            
     @classmethod
-    def get_instance(self: Literal['Log'], logger_configs = None) -> Literal['Log']:
+    def get_instance(self: Literal['Log'], logger_configs = None, **kwargs) -> Literal['Log']:
         """
         Singleton method to catch the only instance of the logger.
         
         Params:
-            directory (str): The directory of the Log file.
-            file_name (str): The file name of the Log file.
+            directory (str): The directory of the file.
+            file_name (str): The file name of the file.
             opening_method (str): The method of opening of the Log File ['w+', 'a+']. Defaults to 'a+
             encoding_method (str): The method of encoding ['utf-8', 'iso-8859-3']. Defaults to 'utf-8'
             debug_level (CONSTANT): The debugging level of the logger. Defauls to INFO
@@ -225,6 +228,8 @@ class Log:
             self._instance: Literal['Log instance'] -> The instance of the Log object
         """
         if self._instance is None:
+            if logger_configs == None:
+                logger_configs = kwargs
             directory, file_name, opening_method, encoding_method, debug_level = logger_configs.get('directory'), logger_configs.get('file_name'), logger_configs.get('opening_method'), logger_configs.get('encoding_method'), logger_configs.get('debug_level')
             self._instance =  self( directory = directory
                                     , file_name = file_name
