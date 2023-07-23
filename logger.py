@@ -49,12 +49,25 @@ class Log:
 
     @property
     def file_directory(self: Literal['Log']) -> str:
+        """
+        Returns the path where the log file is located
+
+        Args:
+            self (object): Itself
+
+        Returns:
+            str: path to the log file
+        """
         return os.path.join(self.__directory, self.file_name)
 
     @property
     def file_name(self: Literal['Log']) -> str:
         """
         Returns the filename of the logger, in case it's needed.
+        The filename it's updated when the day changes, so the lib 
+        can create a new file when the day changes, keeping
+        the log directory organized, and the log file compact
+        
 
         Args:
             self (object): Itself
