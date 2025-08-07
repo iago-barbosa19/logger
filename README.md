@@ -1,7 +1,8 @@
 # Logger
 
 ---
-> O projeto serve para ser um logger próprio, tendo em vista os problemas que o pacote logging pode ter
+> O projeto serve para ser um logger próprio, tendo em vista que não sou muito fã do pacote logging.
+> e tive a vontade de fazer esse projeto para aprender como um logger funciona.
 >
 > O projeto foi feito usando Python3.10 e bibliotecas nativas do Python, então é possível rodar em
 > todas as versões do Python.
